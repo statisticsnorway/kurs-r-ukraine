@@ -85,7 +85,7 @@ employees <- c(3, 20, 14)
 
 
 
-# h) What is the number of employees in any industry group in 2017?
+# h) What is the smallest number of employees in any industry group in 2017?
 
 
 
