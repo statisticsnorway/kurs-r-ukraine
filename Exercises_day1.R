@@ -9,7 +9,7 @@
 
 
 
-# b) Find the help file for the function sqrt(). WHat does it do?
+# b) Find the help file for the function sqrt(). What does it do?
 
 
 
@@ -17,7 +17,7 @@
 
 
 
-# d) Create an object with the name of an oblast (region). Print the object to the console (Run)
+# d) Create an object which contains a string with the name of an oblast (region). Print the object to the console (Run)
 
 
 
@@ -48,7 +48,7 @@
 
 #### Exercise 2 ####
 
-# Use the following vector for exercise 2a-b
+# Use the following vector for exercise 2a-b (or the one you created in the previous exercise)
 employees <- c(3, 20, 14)
   
 # a) Write a condition/test to see which elements in the vector, employees, are less than 5
@@ -64,9 +64,10 @@ employees <- c(3, 20, 14)
 
 
 
-# d) Open the dataset "employees.csv" without reading it in. What seperator does it use?
-# The dataset is in the data folder of the repository. I contains the number of 
-#         employees in Ukraine by year in industry groups.
+# d) Open the dataset "employees.csv" without reading it in. 
+#    What seperator does it use?
+# Note: The dataset is in the data folder of the repository. I contains the number 
+#    of employees in Ukraine by year in industry groups.
 # Hint: Find the dataset under Files and click on it. Choose "View File"
 
 
