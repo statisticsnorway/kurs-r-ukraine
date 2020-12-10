@@ -113,7 +113,7 @@ ifelse(location == "Kyiv", "capital", "other")
 #### Create a dataset ####
 locationdata <- data.frame(oblasts, year)
 locationdata
-View(location)
+View(locationdata)
 
 oblastdata <- data.frame(oblast = c("Kyiv",  "Volyn"), innbyggere = c(1731673, 104855))
 View(oblastdata)
