@@ -78,11 +78,11 @@ year
 
 
 # Categorical vector
-oblasts <- c("Kyiv","Volyn", "Sumy")
+oblasts <- c("Kyiv", "Volyn", "Sumy")
 oblasts
 
 
-# How many elemnets in the vector
+# How many elements in the vector
 length(oblasts)
 
 
