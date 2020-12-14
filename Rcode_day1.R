@@ -122,6 +122,7 @@ View(oblastdata)
 
 
 #### Read csv file ####
+#install.packages("tidyverse")
 library(tidyverse)
 
 # Dataset with comma seperator
@@ -140,6 +141,7 @@ View(labourdata)
 
 
 #### Read in stata file ####
+#install.packages("haven")
 library(haven)
 popdata <- read_dta("./data/population.dta")
 
