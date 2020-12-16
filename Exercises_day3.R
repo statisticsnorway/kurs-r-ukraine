@@ -2,8 +2,8 @@
 
 #### Exercise 5 ####
 
-#### Sampling ####
-# a) Read the dataset population into R and remove the row for Ukraine (total)
+
+# a) Read the dataset "population.csv" into R and remove the row for Ukraine (total)
 
 
 
@@ -60,7 +60,7 @@
 # Use the employees dataset for the following exercises
 
 # a) Set up a rules based correction than all observation for 2017 less than 30 should be missing data (NA)
-# HINT: use install.packages("dcmodify") bedore calling the package with library
+# HINT: use install.packages("dcmodify") before calling the package with library
 
 
 
