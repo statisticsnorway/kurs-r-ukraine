@@ -2,7 +2,7 @@
 # DAY 2
 
 #### Exercise 3 ####
-# a) Read in dataset  inn "employees.csv" (in the data folder)
+# a) Read in the dataset "employees.csv" (in the data folder)
 
 
 
@@ -15,7 +15,7 @@
 
 # c) The dataset contains a mix of levels for industry codes (SIC). 
 # Create a new variable for the SIC level. You can use "national" for national, 
-# "main" for the main letter categories and "subdivision" for the 2 digit calssifications.
+# "main" for the main letter categories and "subdivision" for the 2 digit classifications.
 # or you are welcome to choose your own labels.
 # HINT: use nchar() to count the number of digits in SIC
 
@@ -98,7 +98,7 @@
 # The following transforms the data to "long format" where year is now one variable
 employees_long <- employees %>% gather(year, employees, 3:9)
 
-#g) Use the new data to create a line plot for the SIC groups: Industry (D) and Construction(F)
+#g) Use the new data to create a line plot for the SIC groups: Industry (D) and Construction (F)
 
 # Hint: filter the SIC groups first
 # Hint: use + geom_line()
