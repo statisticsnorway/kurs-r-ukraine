@@ -22,17 +22,6 @@ exp(2)
 ?log10
 
 
-
-
-
-
-
-
-
-
-############################################################################################
-# Part 2 
-
 #### Strings ####
 "Hello, world!"
 print("Hello, world")
@@ -40,11 +29,11 @@ print("Hello, world")
 # paste two or more together
 paste("Hello", "Susie")
 paste("Hello", "Susie", sep = ", ")
-paste("Susie er", 39, "år gammel")
+paste("Susie is", 39, "years old")
 
 # Take out some characters in string
-substr("Susie liker kake", 1, 2)
-substr("Susie liker kake", 13, 16)
+substr("Susie likes cake", 1, 2)
+substr("Susie likes cake", 13, 16)
 
 
 
@@ -56,7 +45,7 @@ founded
 location <- "Potocki Palace"
 location
 
-# Objekter kan overskrives
+# Objects can be overwritten
 founded <- founded + 1
 founded
 
@@ -89,6 +78,11 @@ length(oblasts)
 
 
 
+
+
+############################################################################################
+# Part 2 
+
 #### Logical statements ####
 founded == 1917
 founded == 1918
@@ -102,7 +96,7 @@ year == 2018
 2015 %in% year
 
 # combine
-founded == 1918 & 2018 %in% year
+founded == 1917 | 2018 %in% year
 
 # ifelse
 ifelse(location == "Kyiv", "capital", "other")
@@ -127,7 +121,7 @@ library(tidyverse)
 
 # Dataset with comma seperator
 popdata <- read_csv("./data/population.csv")
-popdata
+View(popdata)
 
 
 # Datasett with ; seperator
@@ -151,7 +145,6 @@ popdata <- read_dta("./data/population.dta")
 #### Read fixed width format ####
 pop <- read_fwf("./data/population.txt", 
                 fwf_cols(region=15, total = 9, rural = 9, urban = 9))
-?read_fwf
 
 
 

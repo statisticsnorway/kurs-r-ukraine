@@ -1,4 +1,4 @@
-#### DAG 4: Exercise 7 ####
+#### DAY 4: Exercise 7 ####
 
 # Use the following vector ("oblast") for the exercises
 oblast <- c("Vinnytsya", "Volyn", "Dnipropetrovsk", "Donetsk", "Zhytoyrm")

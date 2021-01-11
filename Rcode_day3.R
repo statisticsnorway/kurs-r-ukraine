@@ -3,16 +3,22 @@
 
 
 #### Sampling ####
-popdata <- read_csv("./data/population.csv")
-sampling_frame <- popdata %>%
+library(tidyverse)
+sampling_frame <- read_csv("./data/population.csv") %>%
   filter(region != "Ukraine")
+View(sample_frame)
+
 
 #simple random sample
-sampling_frame %>%
+mysample <- sampling_frame %>%
   sample_n(3)
 
+
+
 # set the seed
-set.seed(35622)
+set.seed(-1199)
+sampling_frame %>%
+  sample_n(3)
 sampling_frame %>%
   sample_n(3)
 
@@ -24,17 +30,13 @@ sampling_frame <- sampling_frame %>%
 
 sample <- sampling_frame %>%
   group_by(urban_strata) %>%
-  sample_n(3)
+  sample_n(2)
+sample
+
 
 # Random number2
 runif(1)
 runif(10)
 
-
-
-
-
-
-#### Imputation ####
 
 
