@@ -4,9 +4,6 @@
 
 #### Sampling ####
 library(tidyverse)
-
-sampling_frame <- read_csv("./data/population.csv")
-
 sampling_frame <- read_csv("./data/population.csv") %>%
   filter(region != "Ukraine")
 View(sample_frame)
@@ -15,9 +12,6 @@ View(sample_frame)
 #simple random sample
 mysample <- sampling_frame %>%
   sample_n(3)
-
-sample_n(sampling_frame, 3)
-mysample
 
 
 
