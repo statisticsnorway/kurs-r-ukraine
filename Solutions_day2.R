@@ -2,12 +2,13 @@
 # DAY 2
 
 #### Exercise 3 ####
-# a) Read in dataset  inn "employees.csv" (in the data folder)
+# a) Read in the dataset "employees.csv" (in the data folder)
+#install.packages("tidyverse")
 library(tidyverse)
 employees <- read_csv2("./data/employees.csv")
 
 
-# b) Create a new variable for the difference in employee numbers between 2017 and 2018
+# b) Create a new variable for the difference in employee numbers between 2017 and 2016
 employees <- employees %>%
   mutate(y2016_2017 = year2017-year2016)
 glimpse(employees)
@@ -16,21 +17,22 @@ glimpse(employees)
 
 # c) The dataset contains a mix of levels for industry codes (SIC). 
 # Create a new variable for the SIC level. You can use "national" for national, 
-# "main" for the main letter categories and "subdivision" for the 2 digit calssifications.
+# "main" for the main letter categories and "subdivision" for the 2 digit classifications.
 # or you are welcome to choose your own labels.
 # HINT: use nchar() to count the number of digits in SIC
 employees <- employees %>%
   mutate(level = ifelse(nchar(SIC) == 1, "main", "subdivision"),
          level = ifelse(Industry == "Total", "national", level))
+View(employees)
 
 
 # d) Create a new dataset (with a new name) including only rows for the main industry groups.
 # Use select() to only save the variables SIC and the difference between 2016 and 2017
-# Which main industry group had the largest decrease in the number of employee?
-decrease_employees <- employees %>%
+# Which main industry group had the largest decrease in the number of employees?
+main_SIC <- employees %>%
   filter(level == "main") %>%
   select(SIC, y2016_2017)
-
+View(main_SIC)
 
 
 # e) Use filter to see how many employees there were in Ukraine in Real estate activities
@@ -38,6 +40,7 @@ decrease_employees <- employees %>%
 # HINT: Since this is a string variable you need quotes around the value being tested ("L")
 employees %>%
   filter(SIC == "L")
+
 
 
 # f) What is the total number of employees in the groups Industry and Construction for year 2017
@@ -53,7 +56,7 @@ employees %>%
   filter(level == "main") %>%
   summarise(number_groups = n())
 
-
+nrow(main_SIC)
 
 
 
@@ -87,7 +90,9 @@ employees %>%
 employees %>%
   filter(level == "main") %>%
   ggplot(aes(x = SIC, y = year2017)) +
-  geom_bar(stat = "identity")
+  geom_bar(stat = "identity") + 
+  xlab("Standard industry code") +
+  ylab("number of employees (1000's)")
 
 
 # f) create a scatter plot for average wages and number of employees
@@ -96,14 +101,13 @@ employees %>%
   filter(level == "main") %>%
   ggplot(aes(x = year2017, y = wages2017)) + 
   geom_point() + 
-  geom_smooth(method = "lm") + 
-  xlab("employees") + 
+  xlab("employees (1000's) ") + 
   ylab("wages")
-
 
 
 # g) The following transforms the data to "long format" where year is now one variable
 employees_long <- employees %>% gather(year, employees, 3:9)
+
 
 # Use the new data to create a line plot for the SIC groups: Industry (D) and Construction(F)
 # Hint: filter the SIC groups first

@@ -52,22 +52,23 @@ length(employees)
 # Use the following vector for exercise 2a-b (or the one you created in the previous exercise)
 employees <- c(3, 20, 14)
   
-# a) Write a condition/test to see which elements in the vector, employees, are less than 5
+# a) Write a condition/test to see which elements in the vector, "employees", are less than 5
 employees < 5
 
 
-# b) Write a test to see if the vector, employees, contains the number 9
+# b) Write a test to see if the vector, "employees", contains the number 9
 9 %in% employees
 
 
 # c) Fetch the library tidyverse
+#install.packages("tidyverse")
 library(tidyverse)
 
 
 
 # d) Open the dataset "employees.csv" without reading it in. 
 #    What seperator does it use?
-# Note: The dataset is in the data folder of the repository. I contains the number 
+# Note: The dataset is in the data folder of the repository. It contains the number 
 #    of employees in Ukraine by year in industry groups.
 # Hint: Find the dataset under Files and click on it. Choose "View File"
 
