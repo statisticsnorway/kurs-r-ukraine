@@ -77,7 +77,7 @@ labourdata %>%
   
 
 
-#### Gruppering ####
+#### Grouping ####
 labourdata %>%
   group_by(region_type) %>%
   summarise(average_labour_force = mean(age15_70))
@@ -135,8 +135,8 @@ labourdata %>%
 labourdata %>%
   filter(region_type == "oblast") %>%
   ggplot(aes(x = urban_strata, y = labour_force)) +
-  geom_bar(stat = "identity") #+
-  #scale_y_continuous(labels = scales::comma)
+  geom_bar(stat = "identity") 
+
 
 # Filter for Kyiv, Volyn, Ternopil and Rivne and colour
 labourdata %>%
@@ -188,8 +188,9 @@ labourdata %>%
 labourdata %>%
   filter(region_type == "oblast") %>%
   ggplot(aes(x = labour_force, y = age15_24)) + 
-  geom_point(aes(color = urban_strata))
-
+  geom_point(aes(color = urban_strata)) + 
+  scale_color_manual(values=c("red", "blue")) # to change default colours
+  
 
 
 
@@ -202,6 +203,13 @@ labourdata %>%
   geom_point(aes(color = urban_strata))
 
 dev.off()
+
+
+
+
+employees
+employees[, c(1,3,4)]
+
 
 
 
