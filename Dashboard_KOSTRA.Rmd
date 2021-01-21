@@ -1,0 +1,236 @@
+---
+title: "12293: Omsorgstjenester - supplerende nøkkeltall"
+
+output: 
+  flexdashboard::flex_dashboard:
+   vertical_layout: scroll
+   storyboard: true
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(PxWebApiData)
+library(tidyr)
+library(klassR)
+library(MASS)
+library(knitr)
+
+rm(list = ls())
+#Henter data fra statistikkbanen 
+
+helse_bank <- ApiData(12293, KOKkommuneregion0000  = TRUE ,  ContentsCode =TRUE,Tid = TRUE)
+
+dat<-helse_bank[[2]] 
+
+meta<-helse_bank[[1]] 
+
+heldata<-cbind(dat,meta[,1:3])
+heldata$Tid<-as.numeric(heldata$Tid)
+
+#Lager dato for når stander skal hentes fra Klass
+ar<-max(heldata$Tid)
+dato<-paste(ar,"-01-01",sep = "")
+
+
+
+```
+
+Landet
+===================================== 
+
+```{r}	
+
+#Settings for grafer
+
+dat2<- heldata[heldata$KOKkommuneregion0000  == "EAK" ,c("statistikkvariabel","Tid","value")]
+
+library(DT)
+library(rio)
+library(sparkline)
+library(dplyr)
+library(tidyr)
+
+dat_w <- spread(dat2,Tid, value )
+
+
+sparkline_data <- dat2 %>%
+  group_by(statistikkvariabel) %>%
+  summarize(
+    TrendSparkline = spk_chr(
+      value, type ="line"
+    )
+  )
+
+   
+dattable<-left_join(dat_w,sparkline_data)  
+
+datatable(dattable, escape = FALSE, filter = 'top', options = list(paging = FALSE, fnDrawCallback = htmlwidgets::JS(
+  '
+function(){
+  HTMLWidgets.staticRender();
+}
+'
+)
+)) %>%
+  spk_add_deps()   
+
+
+
+```
+
+Fylke per variabel
+===================================== 
+
+```{r fylke, }
+#, fig.width=35, fig.height=10
+
+#Legger variablene i en vekto og teller antall variabler
+
+dat3<- dat2[dat2$Tid  == ar ,]
+var_v<-as.vector(dat3[,1])
+ant_var<-dim(dat3)[1]
+
+
+#Henter gyldig fylkesliste fra Klass 
+fy_klass <- GetKlass(klass = 214, date = dato) 
+
+#Selekterer ut kode og navn på fylke
+fy<-fy_klass[,c("code","name")]
+
+#Renamer navn på code region for  å kunne merge med denne variabelen
+names(fy)[names(fy) == "code"] <- "KOKkommuneregion0000"
+
+#Trekker ut alle fylkestallene ved å merge
+fy_hel<-merge(heldata,fy,by="KOKkommuneregion0000")
+
+
+#Tar ut variablene jeg skal bruke
+minvar<-c("region","Tid","statistikkvariabel","value")
+
+# Library
+library(ggplot2)
+library(plotly)
+
+cex <- 0.9
+par(cex.lab=cex, cex.axis=cex, cex.main=cex)
+
+var <-var_v[1]
+
+minfig<-function(var){
+fy_var<-fy_hel[fy_hel$statistikkvariabel==var, minvar]
+ggplot(fy_var, aes(x=Tid, y=region, fill= value)) + 
+  geom_tile()+
+   ggtitle(label = var) +
+   scale_fill_gradient(low="white", high="red")
+}
+
+minfig(var_v[1])
+minfig(var_v[2])
+minfig(var_v[3])
+minfig(var_v[4])
+minfig(var_v[5])
+minfig(var_v[6])
+minfig(var_v[7])
+minfig(var_v[8])
+minfig(var_v[9])
+minfig(var_v[10])
+minfig(var_v[11])
+minfig(var_v[12])
+
+```
+
+Kostragruppe per variabel
+===================================== 
+
+```{r kostragr, }
+#, fig.width=35, fig.height=10
+
+#Legger variablene i en vekto og teller antall variabler
+
+dat3<- dat2[dat2$Tid  == ar ,]
+var_v<-as.vector(dat3[,1])
+ant_var<-dim(dat3)[1]
+
+
+#Henter gyldig fylkesliste fra Klass 
+ko_klass <- GetKlass(klass = 112, date = dato) 
+
+#Selekterer ut kode og navn på fylke
+ko<-ko_klass[,c("code","name")]
+
+#Renamer navn på code region for  å kunne merge med denne variabelen
+names(ko)[names(ko) == "code"] <- "KOKkommuneregion0000"
+
+#Trekker ut alle fylkestallene ved å merge
+ko_hel<-merge(heldata,ko,by="KOKkommuneregion0000")
+
+
+#Tar ut variablene jeg skal bruke
+minvar<-c("region","Tid","statistikkvariabel","value")
+
+# Library
+library(ggplot2)
+library(plotly)
+
+cex <- 0.9
+par(cex.lab=cex, cex.axis=cex, cex.main=cex)
+
+var <-var_v[1]
+
+minfig<-function(var){
+ko_var<-ko_hel[ko_hel$statistikkvariabel==var, minvar]
+ggplot(ko_var, aes(x=Tid, y=region, fill= value)) + 
+  geom_tile()+
+   ggtitle(label = var) +
+   scale_fill_gradient(low="white", high="red")
+}
+
+minfig(var_v[1])
+minfig(var_v[2])
+minfig(var_v[3])
+minfig(var_v[4])
+minfig(var_v[5])
+minfig(var_v[6])
+minfig(var_v[7])
+minfig(var_v[8])
+minfig(var_v[9])
+minfig(var_v[10])
+minfig(var_v[11])
+minfig(var_v[12])
+
+```
+
+
+Fylke samlet siste år
+===================================== 
+
+```{r fylke 2, fig.width=35, fig.height=10}
+
+
+#Trekker ut siste år
+siste_ar<-max(heldata$Tid)
+fy_hel_s<-fy_hel[fy_hel$Tid==ar, ]
+
+#Tar ut variablene jeg skal bruke
+minvar<-c("region","Tid","statistikkvariabel","value")
+fy_hel_s1<-fy_hel_s[minvar]
+
+#Omgjør fra stående form til tabellform, må laste inn pakken tidyr
+library(tidyr)
+fyhelse <- spread(fy_hel_s1,statistikkvariabel , value )
+rownames(fyhelse) = fyhelse$region
+
+#Denne indikatoren er null og vi må ta den ut "KOSbeleggomsorgs0000", tid og fylke
+drops <- c("Andel beboere i institusjon av antall plasser (belegg) (prosent)", "Tid", "region" )
+fyhelse<-fyhelse[ , !(names(fyhelse) %in% drops)]
+
+#heatmat skal ha matrisedata
+fymat<-t(as.matrix(fyhelse))
+
+
+heatmap(fymat,scale="row",cexRow=2, cexCol = 2, margins = c(5, 5) )
+
+# , main=paste("Indikatorer skalert dvs trekket fra snittet og dele på standardavviket", ar, sep=" "), cex=2)
+
+```
+
