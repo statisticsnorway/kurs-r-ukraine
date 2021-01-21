@@ -1,0 +1,85 @@
+---
+title: "Analysis for Ukraine"
+author: "Aslaug Hurlen Foss"
+date: "15 1 2021"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Analysis of Ukrainien data
+
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
+
+You can write formulas like this: 
+$$y_i=a* x_i +e_i$$
+You can write bold letters like this: **bold**.
+
+
+
+
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. 
+
+You can embed an R code chunk like this:
+```{r, sum}
+summary(employees)
+```
+
+
+You can embed an R code and hide code, warnings and message like this:
+
+```{r read, message = F, echo=F, warning=F}
+library(tidyverse)
+employees <- read_csv2("./data/employees.csv")
+summary(employees)
+maximum<- max(employees$year2016)
+```
+
+
+## Include numbers in text
+
+The maximum number of emplyees are `r maximum`
+
+## Including Plots
+
+You can also embed plots, for example:
+
+
+```{r figure , message = F, echo=F, warning=F}
+library(tidyverse)
+employees <- read_csv2("./data/employees.csv")
+wages <- read_csv2("./data/wages.csv")
+
+employees <- employees %>%
+  mutate(level = ifelse(nchar(SIC) == 1, "main", "subdivision"),
+         level = ifelse(Industry == "Total", "national", level))
+
+wages <- wages %>%
+  rename(wages2017 = year2017)
+
+
+employees <- left_join(employees, wages, by = c("SIC"="sic"))
+
+
+employees %>%
+  filter(level == "main") %>%
+  ggplot(aes(x = SIC, y = year2017)) +
+  geom_bar(stat = "identity")
+
+
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+
+## Include tables
+
+```{r table, message = F, echo=F, warning=F}
+library(knitr)
+
+kable(employees,caption="Employess in Ukraine", digits=0)
+
+```
+
+
