@@ -1,6 +1,9 @@
 # Introductory course in R - for State Statistics Services of Ukraine 
 
-This repository contains example code, presentations, exercises and solutions for an *Introduction to R* course provided for the State Statistics Services of Ukraine. The course is 6 half days held in February/March 2025 provided by Statistics Norway. Two topics are covered each day and include:
+This repository contains example code, presentations, exercises and solutions for an *Introduction to R* course provided for the State Statistics Services of Ukraine. The course is 6 half days held in February/March 2025 provided by Statistics Norway. 
+
+## Course outline
+Two topics are covered each day and include:
 
 | **Day**| **Topic**|**Course holder**|
 |------|--------|------------|
