@@ -1,0 +1,179 @@
+---
+title: "Reusing code with loops and functions"
+format: html
+---
+
+## Introduction to re-using code
+
+There are different levels of re-using code:
+
+-   **Within your own R-script**
+-   Copy-paste
+-   Libraries
+-   Service
+
+The focus for this topic is on the first level where we will look at ways to use **loops** and **functions** to re-use code within a script file.
+
+### Advantages of re-using code
+
+-   Avoid duplication so changes only in one place
+-   Easier to read
+-   Easier to test
+
+## Evaluate conditions
+
+### Comparisons with operators
+
+In R, comparisons are commonly used to evaluate conditions, filter data, and perform logical operations. R provides several comparison operators to compare values, vectors, and data frames. Common operators include:
+
+| Operator | Meaning                            |
+|----------|------------------------------------|
+| `==`     | Equal to                           |
+| `!=`     | Not equal to                       |
+| \<       | Less than                          |
+| \>       | Greater than                       |
+| \<=      | Less than or equal to              |
+| \>=      | Greater than or equal to           |
+| %in%     | Element is found in another object |
+
+```{r}
+price <- 26
+price
+```
+
+```{r}
+price == 25
+```
+
+```{r}
+price %in% c(20, 20.3, 25.3)
+```
+
+Conditions can be combined using `&` to check if both conditions are met, or `|` for if at least one condition is met.
+
+```{r}
+price > 20 | price < 26
+```
+
+```{r}
+price > 20 & price < 26
+```
+
+Functions like `all()`, `any()`, and `identical()` help with more complex comparisons.
+
+## Using `if()`
+
+The `if()` function uses a condition to control processes. If the condition is met (TRUE), then the next process is run. Brackets `{}` are used to contain the process.
+
+```{r}
+if(price > 20){
+  print("The price is greater than 20.")
+}
+```
+
+This may be followed by `else` to give the exception process.
+
+```{r}
+if(price > 20){
+  print("The price is greater than 20.")
+} else {
+  print("The price is below 20")
+}
+```
+
+## Using `ifelse()`
+
+To compare and do something based on a condition we can use `ifelse()`. This is useful for doing comparisons on vectors. We need to specify the condition first, and then what to return if the condition is true, and then what to return if the condition is false.
+
+```{r}
+price_vector <- c(22.50, 26.90, 21.60, 25, 30.1)
+print(price_vector)
+```
+
+```{r}
+ifelse(price_vector < 25, "low", "high")
+```
+
+## Loops
+
+Loops in R are used to automate repetitive tasks by executing a block of code multiple times. Just like following steps to make multiple sandwiches without writing each step manually, multiple times.
+
+![](./images/bread3.png)
+
+Imagine you need to make 3 sandwiches. Instead of writing multiple times:
+
+1.  Cut bread
+2.  Put on plate
+3.  Spread topping
+
+We can use a loop:
+
+```{r}
+for (i in 1:3) {
+  print("Cut bread")
+  print("Put on plate")
+  print("Spread topping")
+  print("---")
+}
+```
+
+R supports several types of loops, including `for`, `while`, and `repeat` loops.
+
+### For-loops (`for()`)
+For-loop are for processes that repeat themselves a specific number of times.
+
+![](./images/for-loop.png)
+
+The value of the loop object can be used in the loop:
+
+```{r}
+for (i in 1:3) {
+  print(paste0("Cut bread number: ", i))
+  print(paste0("Put on plate number: ", i))
+  print(paste0("Spread topping number: ", i))
+  print("---")
+}
+```
+
+You can use a sequence (for example 1:3) or a vector to determine the number of times to repeat.
+
+
+```{r}
+toppings <- c("jam", "honey","peanutbutter")
+
+for (i in toppings) {
+  print("Cut bread")
+  print("Put on plate")
+  print(paste0("Spread topping: ", i))
+  print("---")
+}
+
+```
+
+```{r}
+for (i in 1:3) {
+  print("Cut bread")
+  print("Put on plate")
+  print(paste0("Spread topping: ", toppings[i]))
+  print("---")
+}
+```
+
+
+### While-loops (`while()`)
+While-loops check a condition and repeat a processs until the condition is no longer met.
+
+![](./images/while-loop.png)
+
+```{r}
+n <- 1
+while (n < 3){
+  print("Cut bread")
+  print("Put on plate")
+  print("Spread topping")
+  print("---")
+  n <- n + runif(1)
+}
+
+```
+

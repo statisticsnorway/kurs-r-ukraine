@@ -1,44 +1,42 @@
-#### DAY 4: Exercise 7 ####
+#------------------------------------------------------------------------#
+#### Day 4: Conditions and loops ####
+#------------------------------------------------------------------------#
 
-# Use the following vector ("oblast") for the exercises
-oblast <- c("Vinnytsya", "Volyn", "Dnipropetrovsk", "Donetsk", "Zhytoyrm")
+# Use the following data to answer the questions
+price_df <- data.frame(
+  coicop = c("01.1.6.1", "01.1.6.1", "01.1.6.1", "01.1.6.3", "01.1.6.3", "01.1.6.3"), 
+  price_jan = c(10.0, 13.0, 14.5, 8.9, 9.0, 8.1),
+  price_feb = c(10.0, 13.2, 14.5, 8.9, 9.5, 8.1),
+  price_mar = c(10.2, 13.2, 15.0, 8.9, 9.9, 8.2)
+  )
 
-
-# 1) Extract element 2 and 3 from the vector, "oblast", using indexing
-
-
-
-# 2) Extract all elements in the vector  except index 2 ("Volyn")
-
-
-
-# 3) Use the function "match()" to find which index "Donetsk" is in the vector
-
-
-
-# 4) Change the element "Donetsk" in the vector to "Zakarpattya"
-
-
-
-# 5) Create a "list" containing the vector "oblast" (used previously) and the population counts for the oblasts
-# population = c(1538331, 1028693, 3173339, 1208981, 1250958)
-
-
-
-# 6) Extract/print the population vector from the list
-
-
-
-# 7) Convert the list to a "tibble" dataset. 
-
-
-
-# 8) Extract element in row 2 and column 1 of the "tibble" dataset.
+# 1) Write a condition statement to check if the price in March ('price_mar') is more than 10.
 
 
 
 
+# 2) Use the ifelse() function to create a vector for if the March price is more than 10.
 
+
+
+
+# 3) Count the number of observations over 10 in March 
+
+
+
+
+# 4) Create a vector of the names of the price data variables in the data
+
+
+
+
+# 5) Write a for-loop to loop through the three months of data and print the number of observations over 10
+# Tips: Use the vector from 4 to loop through.
+
+
+
+
+# 6 (EXTRA) Write a new for-loop to loop through the two coicop groups. Use mean() to find the average price for March.
 
 
 
@@ -46,43 +44,44 @@ oblast <- c("Vinnytsya", "Volyn", "Dnipropetrovsk", "Donetsk", "Zhytoyrm")
 
 
 
+#------------------------------------------------------------------------#
+#### Day 4: Functions ####
+#------------------------------------------------------------------------#
 
-
-##############################################################################
-# Day 4: Exercise 8
-# Use the same "oblast" data from the previous part in this exercise
-oblast_df <- tibble(
-  oblast = c("Vinnytsya", "Volyn", "Dnipropetrovsk", "Zakarpattya", "Zhytoyrm"), 
-  population = c(1538331, 1028693, 3173339, 1208981, 1250958))
-
-
-# 1) Create a vector with 5 random numbers between 0 and 1. 
-
-
-
-# 2) Sort the "oblast" dataset based on the random numbers in the previous question.
-
-
-
-# 3) Write an "if" sentence to see if the oblast "Donetsk" is in the dataset
-# If it is, print "Donetsk is in the dataset" 
-# (If it isn't, you don't need to do anything)
-
-
- 
-
-
-# 4) Write an "if" sentence to see if any of the population number er more than 2 million
-# Hint: use "any()" to determine if any in the vector return "TRUE" from the test 
+# 1) Create a function with one input which is a vector (x). The function should return the mean of the vector
 
 
 
 
-
-# 5) Write a "for-loop" to loop through the rows in the dataset. 
-# If the population size is greater than 2 million, print the name of the oblast and "is greater than 2 million".
-# If the population size is less than 2 million, print the name of the oblast and "is less than 2 million".
+# 2) Check that the function works by calling it with the vector of prices for March.
 
 
+
+
+# 3) Create a new function with two vectors as inputs (x0 and x1). The function should return the chain Dutot index for the two vectors.
+# Note: The Dutot index is the ratio of the arithmetic averages: mean of x1 divided by mean of x0
+
+
+
+# 4) Check the function using the earlier price data using January as the base year (x0) and March as the current year (x1)
+
+
+
+# 5) Add a boolean argument (na.rm) to determine if NA values should be removed before calculating the means.
+# If the argument is TRUE, remove NAs in either x0 or x1.
+# Test the function by adding a NA to the data: price_df$price_mar[4] <- NA
+price_df$price_mar[4] <- NA
+
+
+
+# 6) Add a default value to the na.rm argument
+
+
+
+# 7) Add a warning if a NA value is found in the x0 vector. 
+
+
+
+# 8) (EXTRA) Write a for-loop to calculate the Dutot index for each coicop for March
 
 
