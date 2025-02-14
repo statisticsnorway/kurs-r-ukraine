@@ -1,0 +1,209 @@
+---
+title: "Reusing code with functions"
+format: html
+editor: source
+---
+
+## What is a function?
+
+In R, a function is a block of code designed to perform a specific task. Functions help you organize your code and make it reusable.
+
+![](./images/function.png){width="400"}
+
+Functions can take arguments (inputs) to customize their behavior. These are sent into the function to specify what the function should do.
+
+![](./images/function_parameter.png){width="400"}
+
+## Writing simple functions
+
+You define a function using `function()` and giving it a name by allocating to an object.
+
+```{r}
+random_ratio <- function(){
+  rnd <- runif(1) / runif(1)
+  rnd
+}
+```
+
+When you have run this code script, the function is saved in memory and can be called.
+
+```{r}
+random_ratio()
+```
+
+Functions can take arguments (inputs) to customize their behavior. There can be as many arguements as you want (but too many can be confusing).
+
+Here is a simple ratio function with 2 arguments:
+
+```{r}
+get_ratio <- function(x, y){
+  ratio <- y / x
+  return(ratio)
+}
+```
+
+```{r}
+get_ratio(25.9, 32.0)
+```
+
+| Term | Description |
+|------------------------------------|------------------------------------|
+| **Definition**: | You define a function using the `function` keyword and give the function a name |
+| **Arguments**: | Functions can take arguments (inputs) to customize their behavior. |
+| **Body**: | The body of the function contains the code that performs the task. |
+| **Return Value**: | Functions can return a value or object. The object on the last line is returned. In some cases, it can be useful to use the `return()` function to control what is returned |
+
+## Argument types
+
+Arguments can be any type of R object. The most common are:
+
+-   data frames
+-   numbers (floats or integers)
+-   strings
+-   vectors
+-   boolean (TRUE/FALSE)
+
+For example if we want to add a check in the previous function for zero values we could add a boolean argument
+
+```{r}
+get_ratio <- function(x, y, check_zero){
+  if (check_zero){
+    if (x == 0){
+      x <- 1
+    }
+  } 
+  ratio <- y / x
+  ratio
+}
+```
+
+```{r}
+get_ratio(25.9, 32.0, check_zero = TRUE)
+```
+
+```{r}
+get_ratio(0, 32.0, check_zero = TRUE)
+```
+
+```{r}
+get_ratio(0, 32.0, check_zero = FALSE)
+```
+
+## Default values for arguments
+
+In R, you can define default values for function arguments, which makes your functions more flexible and easier to use. When you set a default value for an argument, it means that if the user does not provide a value for that argument when calling the function, the default value will be used.
+
+If there are several arguments, default arguments should be positioned at the end.
+
+```{r}
+get_ratio <- function(x, y, check_zero = TRUE){
+  if (check_zero){
+    if (x == 0){
+      x <- 1
+    }
+  } 
+  ratio <- y / x
+  ratio
+}
+```
+
+```{r}
+get_ratio(25.9, 32.0)
+```
+
+## Warnings and messages
+
+In R, you can use `stop()`, `warning()` and `message()` to handle different types of notifications and errors within your functions.
+
+### Stop
+
+The ´stop()´ function generates an error message and stops the execution of the function. It's used when a critical issue occurs that prevents the function from continuing.
+
+```{r}
+get_ratio <- function(x, y, check_zero = TRUE){
+  if (check_zero){
+    if (x == 0){
+      stop("Input for x should not be zero")
+    }
+  } 
+  ratio <- y / x
+  ratio
+}
+
+get_ratio(0, 20.3)
+```
+
+### Warnings
+
+The ´warning()´ function generates a warning message but allows the function to continue executing. It's useful for alerting users about potential issues that don't necessarily stop the function.
+
+```{r}
+get_ratio <- function(x, y, check_zero = TRUE){
+  if (check_zero){
+    if (x == 0){
+      warning("Input for x was zero and has been adjusted to 1\n")
+      x <- 1
+    }
+  } 
+  ratio <- y / x
+  ratio
+}
+
+get_ratio(0, 20.3)
+```
+
+### Messages
+
+The ´message()´function prints a message to the console without interrupting the function's execution. It's typically used for informational messages that don't indicate an error.
+
+```{r}
+get_ratio <- function(x, y, check_zero = TRUE){
+  if (check_zero){
+    if (x == 0){
+      message("Input for x was zero and has been adjusted to 1\n")
+      x <- 1
+    }
+  } 
+  ratio <- y / x
+  ratio
+}
+
+get_ratio(0, 20.3)
+```
+
+## Local vs global environment
+
+In R, understanding the difference between local and global environments is crucial when writing functions.
+
+|   | Scope | Lifetime |
+|------------------------|------------------------|------------------------|
+| **Global Environment** | Objects are accessible from anywhere in the R session. | Objects persist for the entire R session unless explicitly removed. |
+| **Local Environment** | Objects are accessible only within the function where they are created. | Objects exist only for the duration of the function call. |
+
+![](./images/environments.png){width="500"}
+
+```{r, results=}
+x <- 2
+print(x)
+```
+
+```{r}
+my_function <- function(){
+  x <- 3
+  print("The value of x in the function is:")
+  print(x)
+  
+  y <- 5
+  print("the value of y in the function is:")
+  print(y)
+}
+my_function()
+```
+
+```{r}
+print(x)
+```
+
+```{r}
+print(y)
+```
