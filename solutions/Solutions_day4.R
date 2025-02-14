@@ -1,94 +1,137 @@
-#### DAG 4: Exercise 7 ####
+#------------------------------------------------------------------------#
+#### Day 4: Conditions and loops ####
+#------------------------------------------------------------------------#
 
-# Use the following vector ("oblast") for the exercises
-oblast <- c("Vinnytsya", "Volyn", "Dnipropetrovsk", "Donetsk", "Zhytoyrm")
+# Use the following data to answer the questions
+price_df <- data.frame(
+  coicop = c("01.1.6.1", "01.1.6.1", "01.1.6.1", "01.1.6.3", "01.1.6.3", "01.1.6.3"), 
+  price_jan = c(10.0, 13.0, 14.5, 8.9, 9.0, 8.1),
+  price_feb = c(10.0, 13.2, 14.5, 8.9, 9.5, 8.1),
+  price_mar = c(10.2, 13.2, 15.0, 8.9, 9.9, 8.2)
+  )
 
+# 1) Write a condition statement to check if the price in March ('price_mar') is more than 10.
 
-# 1) Extract element 2 and 3 from the vector, "oblast", using indexing
-oblast[2:3]
-
-
-# 2) Extract all elements in the vector  except index 2 ("Volyn")
-oblast[-2]
-
-
-# 3) Use the function "match()" to find which index "Donetsk" is in the vector
-match("Donetsk", oblast)
-
-
-# 4) Change the element "Donetsk" in the vector to "Zakarpattya"
-oblast[4] <- "Zakarpattya"
+price_df$price_mar > 10
 
 
-# 5) Create a "list" containing the vector "oblast" (used previously) and the population counts for the oblasts
-# population = c(1538331, 1028693, 3173339, 1208981, 1250958)
-oblast_list <- list(oblast = oblast, 
-                    population = c(1538331, 1028693, 3173339, 1208981, 1250958))
+# 2) Use the ifelse() function to create a vector for if the March price is more than 10.
+
+ifelse(price_df$price_mar > 10, 1, 0)
 
 
-# 6) Extract/print the population vector from the list
-oblast_list$population
+# 3) Count the number of observations over 10 in March 
+over10 <- ifelse(price_df$price_mar > 10, 1, 0)
+sum(over10)
 
 
-# 7) Convert the list to a "tibble" dataset. 
-library(tidyverse)
-oblast_tib <- as_tibble(oblast_list)
+# 4) Create a vector of the names of the price data variables in the data
+
+price_vars <- c("price_jan", "price_feb", "price_mar")
 
 
-# 8) Extract element in row 2 and column 1 of the "tibble" dataset.
-oblast_tib[2, 1]
+# 5) Write a for-loop to loop through the three months of data and print the number of observations over 10
+# Tips: Use the vector from 4 to loop through.
 
+for (v in price_vars){
+  vec <- price_df[, v]
+  over10 <- ifelse(vec > 10, 1, 0)
+  print(sum(over10))
+}
 
+# 6 (EXTRA) Write a new for-loop to loop through the two coicop groups. Use mean() to find the average price for March.
 
+library(dplyr)
 
+coicop_vec <- unique(price_df$coicop)
 
-
-
-
-
-
-
-
-
-##############################################################################
-# Day 4: Exercise 8
-# Use the same "oblast" data from the previous part in this exercise
-oblast_df <- tibble(
-  oblast = c("Vinnytsya", "Volyn", "Dnipropetrovsk", "Zakarpattya", "Zhytoyrm"), 
-  population = c(1538331, 1028693, 3173339, 1208981, 1250958))
-
-
-# 1) Create a vector with 5 random numbers between 0 and 1. 
-rand <- runif(5)
-
-
-# 2) Sort the "oblast" dataset based on the random numbers in the previous question.
-oblast_df[order(rand), ]
-
-
-# 3) Write an "if" sentence to see if the oblast "Donetsk" is in the dataset
-# If it is, print "Donetsk is in the dataset" 
-# (If it isn't, you don't need to do anything)
-if ("Donetsk" %in% oblast_df$oblast){
-  print("Donetsk is in the dataset")
-} 
-
-
-# 4) Write an "if" sentence to see if any of the population number er more than 2 million
-# Hint: use "any()" to determine if any in the vector return "TRUE" from the test 
-if (any(oblast_df$population > 2000000)){
-  print("Some oblasts are greater than 2 million")
+for (p in coicop_vec){
+  mean_price <- price_df %>% 
+    filter(coicop == p) %>%
+    summarise(mean(price_mar))
+  print(p)
+  print(mean_price)
 }
 
 
-# 5) Write a "for-loop" to loop through the rows in the dataset. 
-# If the population size is greater than 2 million, print the name of the oblast and "is greater than 2 million".
-# If the population size is less than 2 million, print the name of the oblast and "is less than 2 million".
-for (i in 1:nrow(oblast_df)){
-  if (oblast_df$population[i] > 2000000){
-    print(paste(oblast_df$oblast[i], "is more than 2 million"))
-  } else {
-    print(paste(oblast_df$oblast[i], "is less than 2 million"))
+
+
+#------------------------------------------------------------------------#
+#### Day 4: Functions ####
+#------------------------------------------------------------------------#
+
+# 1) Create a function with one input which is a vector (x). The function should return the mean of the vector
+
+mean_func <- function(x){
+  x_mean <- mean(x)
+  x_mean
+}
+
+
+# 2) Check that the function works by calling it with the vector of prices for March.
+
+mean_func(price_df$price_mar)
+
+
+# 3) Create a new function with two vectors as inputs (x0 and x1). The function should return the chain Dutot index for the two vectors.
+# Note: The Dutot index is the ratio of the arithmetic averages: mean of x1 divided by mean of x0
+
+dutot_func <- function(x0, x1){
+  mean(x1) / mean(x0)
+}
+
+# 4) Check the function using the earlier price data using january as the base year (x0) and March as the current year (x1)
+
+dutot_func(price_df$price_jan, price_df$price_mar)
+
+# 5) Add a boolean argument (na.rm) to determine if NA values should be removed before calculating the means.
+# If the argument is TRUE, remove NAs in either x0 or x1.
+# Test the function by adding a NA to the data: price_df$price_mar[4] <- NA
+
+dutot_func <- function(x0, x1, na.rm) {
+  if (na.rm) {
+    x0 <- x0[!is.na(x0)]
+    x1 <- na.omit(x1)
   }
+  mean(x1) / mean(x0)
+}
+
+price_df$price_mar[4] <- NA
+dutot_func(price_df$price_jan, price_df$price_mar, na.rm=TRUE)
+
+# 6) Add a default value to the na.rm argument
+dutot_func <- function(x0, x1, na.rm=TRUE) {
+  if (na.rm) {
+    x0 <- na.omit(x0)
+    x1 <- na.omit(x1)
+  }
+  mean(x1) / mean(x0)
+}
+dutot_func(price_df$price_jan, price_df$price_mar)
+
+# 7) Add a warning if a NA value is found in the x0 vector. 
+
+dutot_func <- function(x0, x1, na.rm = TRUE) {
+  if (any(is.na(x0)) || any(is.na(x1))) {
+    warning("NA values found in input base vector")
+  }
+  
+  if (na.rm) {
+    x0 <- x0[!is.na(x0)]
+    x1 <- na.omit(x1)
+  }
+  mean(x1) / mean(x0)
+}
+dutot_func(price_df$price_jan, price_df$price_mar)
+
+# 8) (EXTRA) Write a for-loop to calculate the Dutot index for each coicop for March
+coicop_vec <- unique(price_df$coicop)
+
+for (p in coicop_vec){
+  temp <- price_df %>% 
+    filter(coicop == p)
+  dutot_ind <- dutot_func(temp$price_jan, temp$price_mar)
+  print(p)
+  print(dutot_ind)
 }
 
