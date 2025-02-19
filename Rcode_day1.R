@@ -39,15 +39,18 @@ substr("Susie likes cake", 13, 16)
 
 
 #### Objects ####
-founded <- 1917
-founded
+price <- 53.5
+price
 
 location <- "Potocki Palace"
 location
 
+
+
+
 # Objects can be overwritten
-founded <- founded + 1
-founded
+price <- price + 1
+price
 
 location <- "Kyiv"
 location
@@ -55,8 +58,18 @@ location
 
 # Object type
 str(location)
-str(founded)
+str(price)
 
+
+
+# Dates
+library(lubridate)
+course_date <- ymd("20250226")
+str(course_date)
+
+wday(course_date, label = TRUE)
+year(course_date)
+course_date + 2
 
 
 
@@ -67,7 +80,7 @@ year
 
 
 # Categorical vector
-oblasts <- c("Kyiv", "Volyn", "Sumy")
+oblasts <- c("Kyiv", "Volyn", "Lviv")
 oblasts
 
 
@@ -84,22 +97,15 @@ length(oblasts)
 # Part 2 
 
 #### Logical statements ####
-founded == 1917
-founded == 1918
-year == 2018
+price == 54.5
 
 # test for not equal
-2 != 3
+price != 59
 
 # test for contains
 2018 %in% year
 2015 %in% year
 
-# combine
-founded == 1917 | 2018 %in% year
-
-# ifelse
-ifelse(location == "Kyiv", "capital", "other")
 
 
 
@@ -109,7 +115,9 @@ locationdata <- data.frame(oblasts, year)
 locationdata
 View(locationdata)
 
-oblastdata <- data.frame(oblast = c("Kyiv",  "Volyn"), innbyggere = c(1731673, 104855))
+oblastdata <- data.frame(
+  oblast = c("Kyiv",  "Volyn"), 
+  innbyggere = c(1788530, 1027397))
 View(oblastdata)
 
 

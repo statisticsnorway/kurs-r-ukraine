@@ -9,35 +9,32 @@
 4499 + 35
 
 
-# b) Find the help file for the function sqrt(). What does it do?
-?sqrt
-
-
-# c) What does the function floor() do? What is the answer to floor(2.48)
+# b) Find the help file for the function floor(). What is the answer to floor(2.48)
 ?floor
 floor(2.48)
 
 
-# d) Create an object which contains a string with the name of an oblast (region). Print the object to the console (Run)
+# c) Create an object which contains a string with the name of an oblast (region). Print the object to the console
 oblast <- "Kyiv"
-oblast
-
-# e) Paste the oblast object together with a new string, for example "is a nice place"
-paste(oblast, "is a nice place")
+print(oblast)
 
 
-# f) Create a vector with 3 different numbers (integers). Call this vector: employees
-employees <- c(3, 20, 14)
+# d) Run the following vector so that the object milk_price is in the environment. 
+# Check it is listed in the "Environment" pane.
+milk_price <- c(43.67, 45.0, 42.7)
 
 
-# g) Find the help file for the function length()
-?length
+# e) Create a vector with 3 strings with milk product names. Call this vector: product_names 
+# For example: 'Yagotynske Pasteurized Milk', 'Novus Milk', and 'Galychyna Pasteurized Milk'
+product_names <- c('Yagotynske Pasteurized Milk', 'Novus Milk', 'Galychyna Pasteurized Milk')
 
 
-# h) Check the length of the vector, employees, with the function length()
-length(employees)
+# e) Check the length of the vector you created in e), with the function length()
+length(product_names)
 
 
+# f) Print the 3rd element in the product_names vector using []
+product_names[3]
 
 
 
@@ -49,15 +46,15 @@ length(employees)
 
 #### Exercise 2 ####
 
-# Use the following vector for exercise 2a-b (or the one you created in the previous exercise)
-employees <- c(3, 20, 14)
+# Use the milk_price and product_names vectors from exercise 1.
+
   
-# a) Write a condition/test to see which elements in the vector, "employees", are less than 5
-employees < 5
+# a) Write a condition/test to see which elements in the milk_proice vector, are less than 43
+milk_price < 43
 
 
-# b) Write a test to see if the vector, "employees", contains the number 9
-9 %in% employees
+# b) Write a test to see if the product_names vector contains the string 'Novus Milk'
+'Novus Milk' %in% product_names
 
 
 # c) Fetch the library tidyverse
@@ -65,16 +62,15 @@ employees < 5
 library(tidyverse)
 
 
-
-# d) Open the dataset "employees.csv" without reading it in. 
+# d) Open the data "employees.csv" without reading it in. 
 #    What seperator does it use?
-# Note: The dataset is in the data folder of the repository. It contains the number 
+# Note: The data is in the data folder of the repository. It contains the number 
 #    of employees in Ukraine by year in industry groups.
-# Hint: Find the dataset under Files and click on it. Choose "View File"
+# Hint: Find the data under Files and click on it. Choose "View File"
 
 
 
-# e) Read in the dataset "employees.csv"
+# e) Read in the data "employees.csv"
 # Hint: Remember to use " " around the path and file name.
 employees <- read_csv2("./data/employees.csv")
 
