@@ -1,0 +1,196 @@
+---
+title: | 
+  ![Background](images/renv.png)
+  <br>
+  Pakkehåndtering med renv
+author: Susie Jentoft
+format: revealjs
+editor: source
+execute:
+  echo: true   # Show the code in all code blocks
+  eval: false  # Do not execute the code in all code blocks
+---
+
+## Plan
+
+-   ![bullet](images/question.png){width=50} What is renv?
+-   ![bullet](images/list.png){width=50} How to set up a renv-environment
+-   ![bullet](images/writing.svg){width=50} Exercise
+-   ![bullet](images/deler.svg){width=50} How to use and share a renv-environment
+-   ![bullet](images/writing.svg){width=50} Exercise
+
+## What is renv?
+:::: {.columns}
+
+::: {.column width="50%"}
+-   R-package
+-   Creates a closed environment with a set of packages in a project.
+-   The version of the packages is saved.
+:::
+
+::: {.column width="50%"}
+![](images/bottle.png)
+:::
+
+::::
+
+## Why use renv?
+
+:::: {.columns}
+
+::: {.column width="50%"}
+
+![Organise packages](images/organisert.png)
+
+![So new packages can be used](images/pusle.png)
+:::
+
+::: {.column width="50%"}
+![Code works with others](images/samarbeid.png)
+
+![Code works next time](images/reliable.png)
+:::
+
+::::
+
+
+## Package management in R
+
+![](images/version.png)
+
+## How to set up a new environment?
+```{r}
+renv::init()
+```
+![](images/init.png){height=300}
+```{r}
+renv::init('C:\myfiles\myproject')
+```
+
+## How to set up a new environment?
+![](images/files.png)
+
+## Installing packages
+From CRAN:
+```{r}
+renv::install('simputation')
+```
+<br>
+From GitHub:
+```{r}
+renv::install('markvanderloo/simputation')
+```
+<br>
+Specify a version:
+```{r}
+renv::install('simputation@0.2.8')
+```
+
+## Save to the 'lock' file
+Save the package versions to the *renv.lock*:
+```{r}
+renv::snapshot()
+```
+<br>
+**Only packages that are actually used in the project are saved in the *renv.lock* file.**
+<br>
+![](images/camera.svg){width=200}
+
+## Exercise - create environment
+<div style="font-size: 0.8em;">
+1. Create a new R-project in RStudio (don't bother to use Git)
+2. Set up a new renv-environment for your project with `renv::init()`
+3. Install the package *PriceIndices* from CRAN
+4. Create a new R file and use the package *PriceIndices* to access the milk dataset. For example with the following code:
+```{r, eval=F}
+library(PriceIndices)
+head(milk)
+```
+5. Open the *renv.lock* file and check to see if the `PriceIndices` package is listed.
+6. Take a snapshot with `renv::snapshot()`
+7. See if the *PriceIndices* package is there now. 
+8. Install the package `ssb-pris` from Github (from the statisticsnorway GitHub organisation)
+
+</div>
+
+## Share a renv environment with others
+:::: {.columns}
+
+::: {.column width="50%"}
+**Share renv-environment**
+
+Put the following files on GitHub:
+
+![](images/github.png){width=300}
+:::
+
+::: {.column width="50%"}
+**Use a renv-environment**
+
+1. Clone the repository from GitHub
+2. Check that the renv-environment is activated
+```{r}
+renv::status()
+```
+3. Restore the environment
+```{r}
+renv::restore()
+```
+
+<div style="font-size: 0.8em;">
+These steps are only need to be done one time for the project. 
+
+</div>
+:::
+::::
+
+## renv process
+
+![](images/process.png)
+
+## Update a package 
+
+1. Update a package
+```{r}
+renv::update("simputation")
+```
+<br>
+2. Update the *renv.lock* file
+
+```{r}
+renv::snapshot()
+```
+<br>
+3. Commit and push changes to Github
+
+## Update R
+1. Update the version of renv
+```{r}
+renv::upgrade()
+```
+<br>
+2. Update all packages
+```{r}
+renv::hydrate(update = "all")
+```
+<br>
+3. Save changes to *renv.lock* file
+```{r}
+renv::snapshot()
+```
+<br>
+4. Commit and push changes to Github
+
+## Exercise - share environments
+
+1. Clone the renv test repository from Susie's Github: [https://github.com/sjentoft/renv-test-repo.git](https://github.com/sjentoft/renv-test-repo.git)
+2. Create a new branch to work on.
+3. Install all required packages with `renv::restore()`
+4. Open and run the run R-file: *test_caret.R*
+5. Install a new package that isn't in the project from before.
+6. Take a snapshot. Check that the new package is in the *renv.lock* file.  
+TIPS: If it isn't in the *renv.lock*, check that you have actually used the package in the project.
+7. (Optional) Commit and push the changes to Github.
+
+
+
