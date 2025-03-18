@@ -1,6 +1,7 @@
 #------------------------------------------------------------------------#
 #### Day 4: Conditions and loops ####
 #------------------------------------------------------------------------#
+library(tidyverse)
 
 # Use the following data to answer the questions
 price_df <- data.frame(
@@ -13,16 +14,24 @@ price_df <- data.frame(
 # 1) Write a condition statement to check if the price in March ('price_mar') is more than 10.
 
 price_df$price_mar > 10
+price_df %>% 
+  select (price_mar) > 10
 
 
 # 2) Use the ifelse() function to create a vector for if the March price is more than 10.
 
 ifelse(price_df$price_mar > 10, 1, 0)
+price_df %>% 
+  mutate(ifelse(price_mar > 10, 1, 0))
 
 
 # 3) Count the number of observations over 10 in March 
 over10 <- ifelse(price_df$price_mar > 10, 1, 0)
 sum(over10)
+
+price_df %>% 
+  mutate(over10 = ifelse(price_mar > 10, 1, 0)) %>%
+  summarise(sum(over10))
 
 
 # 4) Create a vector of the names of the price data variables in the data
@@ -38,6 +47,13 @@ for (v in price_vars){
   over10 <- ifelse(vec > 10, 1, 0)
   print(sum(over10))
 }
+
+for (v in price_vars) {
+  over10 <- price_df %>% pull(v) > 10
+  print(sum(over10))
+}
+
+
 
 # 6 (EXTRA) Write a new for-loop to loop through the two coicop groups. Use mean() to find the average price for March.
 
