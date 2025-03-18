@@ -15,7 +15,7 @@ Two topics are covered each day and include:
 |      | Imputation|Aslaug |
 | Day 4| Reusing code with loops|Susie |
 |      | Writing functions|Susie |
-| Day 5| Data types and plots |
+| Day 5| Data types and plots |Susie/Aslaug |
 |      | Documentation with Rmarkdown/Quarto|Aslaug |
 | Day 6| GitHub |Susie |
 |      | Package management with renv |Susie |
