@@ -7,15 +7,16 @@ Two topics are covered each day and include:
 
 | **Day**| **Topic**|**Course holder**|
 |------|--------|------------|
-| Day 1| Introduction| Susie |
+| Day 1| Introduction|Susie |
 |      | Reading in data|Susie |
-| Day 2| Data manipulation| Aslaug |
-|      | Merging data sets and plotting|Aslaug |
+| Day 2| Data manipulation|Aslaug |
+|      | Merging data sets|Aslaug |
 | Day 3| Validation and outlier detection|Aslaug |
 |      | Imputation|Aslaug |
 | Day 4| Reusing code with loops|Susie |
 |      | Writing functions|Susie |
-| Day 5| Documentation with Rmarkdown/Quarto|Aslaug |
-|      | Using R with Github|Susie |
-| Day 6| Package management with renv |Susie |
+| Day 5| Data types and plots |
+|      | Documentation with Rmarkdown/Quarto|Aslaug |
+| Day 6| GitHub |Susie |
+|      | Package management with renv |Susie |
 |      | Organising production code|Susie |
