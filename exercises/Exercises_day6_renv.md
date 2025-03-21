@@ -14,4 +14,4 @@ head(milk)
 
 5.  Open the *renv.lock* file and check to see if the *PriceIndices* package is listed.
 6.  Take a snapshot with `renv::snapshot()`
-7.  See if the *PriceIndices* package is there now.
+7.  See if the *PriceIndices* package is in the *renv.lock* file now.
